@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import scrapedData from "../../scraped_data.json";
 
 const RESULTS_PER_PAGE = 20;
@@ -9,6 +9,7 @@ interface Result {
   genres_tags: string;
   image: string;
   link: string;
+  datetime: string;
 }
 
 interface ResultsProps {
@@ -20,19 +21,40 @@ function Results({ selectedGenres }: ResultsProps) {
   const [filteredResults, setFilteredResults] = useState<Result[]>([]);
 
   useEffect(() => {
-    // Filter the results based on selected genres
-    const results = scrapedData.filter((item: Result) =>
+    const uniqueDataMap = new Map<string, Result>();
+
+    scrapedData.forEach((item: Result) => {
+      const uniqueKey = `${item.id}-${item.datetime}`;
+      if (!uniqueDataMap.has(uniqueKey)) {
+        uniqueDataMap.set(uniqueKey, item);
+      }
+    });
+
+    const uniqueData = Array.from(uniqueDataMap.values());
+
+    const sortedData = uniqueData.sort(
+      (a: Result, b: Result) =>
+        new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
+
+    const results = sortedData.filter((item: Result) =>
       selectedGenres.every((genre) => item.genres_tags.includes(genre))
     );
+
+    // Update the state
     setFilteredResults(results);
-    setCurrentPage(1); // Reset to first page on filter change
+    setCurrentPage(1);
   }, [selectedGenres]);
 
   if (selectedGenres.length === 0) {
-    return <p>Please select filters</p>;
+    return (
+      <div className="results p-4">
+        <h2 className="text-xl font-bold">Results</h2>
+        <p>Please select filters</p>
+      </div>
+    );
   }
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredResults.length / RESULTS_PER_PAGE);
   const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
   const endIndex = startIndex + RESULTS_PER_PAGE;
@@ -55,14 +77,14 @@ function Results({ selectedGenres }: ResultsProps) {
   };
 
   return (
-    <div className="results">
-      <h2>Results</h2>
+    <div className="results p-4">
+      <h2 className="text-xl font-bold">Results</h2>
       {paginatedResults.length > 0 ? (
         <ul className="space-y-4">
           {paginatedResults.map((result) => (
             <li
-              key={result.id}
-              className="flex h-48 border rounded-lg overflow-hidden cursor-pointer"
+              key={`${result.id}-${result.datetime}`}
+              className="flex h-48 border rounded-lg overflow-hidden cursor-pointer transform transition-transform duration-200 hover:scale-105 hover:shadow-lg"
               onClick={() => window.open(result.link, "_blank")}
             >
               <img

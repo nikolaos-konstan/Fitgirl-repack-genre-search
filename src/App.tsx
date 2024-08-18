@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Filters from "./components/Filters";
 import Results from "./components/Results";
@@ -8,20 +8,36 @@ function App() {
 
   const handleFiltersSubmit = (genres: string[]) => {
     setSelectedGenres(genres);
-    // You can use the selected genres to filter the results here
   };
 
   return (
-    <div className="app-container flex bg-gray-100 min-h-screen">
-      <div className="filters-container w-[500px] p-4 bg-blue-100">
+    <div className="app-container">
+      <div className="filters-container">
         <Filters onSubmit={handleFiltersSubmit} />
       </div>
-      <div className="results-container w-2/3 p-4 bg-green-100">
+      <div className="results-container">
         <Results selectedGenres={selectedGenres} />
       </div>
-      <div className="disclaimer-container w-1/4 p-4 bg-yellow-100">
-        <h2>Disclaimer</h2>
-        <p>This is a disclaimer text. Please read carefully.</p>
+      <div className="disclaimer-container">
+        <h2 className="text-xl font-bold p-4">Disclaimer</h2>
+        <p className="text-blue-900">
+          This tool provides a category-based sorting feature specifically for
+          the website{" "}
+          <a
+            href="https://fitgirl-repacks.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:text-blue-900"
+          >
+            https://fitgirl-repacks.site/
+          </a>
+          . By selecting a result, you will be redirected to the corresponding
+          link on the official site. The entries are organized chronologically,
+          with the most recent releases appearing first, which may offer better
+          availability. Please note that the data is updated periodically, with
+          the most recent update completed on August 18, 2024, to include the
+          latest files.
+        </p>
       </div>
     </div>
   );

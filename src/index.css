@@ -3,14 +3,12 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #ffefd5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,11 +17,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #00796b;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #004d40;
 }
 
 body {
@@ -32,6 +31,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #ffefd5;
 }
 
 h1 {
@@ -46,13 +46,18 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #00796b;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s, border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: #004d40;
+  border-color: #004d40;
+  color: #fff; /* Ensure text color remains white */
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -63,10 +68,13 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+    color: #000;
   }
 }

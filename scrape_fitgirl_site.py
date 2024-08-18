@@ -56,6 +56,12 @@ def scrape_page(url):
         else:
             article_data["image"] = "No Image"
 
+        time_element = article.find("time")
+        if time_element:
+            article_data["datetime"] = time_element.get("datetime", "No Datetime")
+        else:
+            article_data["datetime"] = "No Datetime"
+
         data.append(article_data)
 
     return data
@@ -90,7 +96,7 @@ def save_to_json(data, filename):
 
 if __name__ == "__main__":
     start_page = 1
-    end_page = 100
+    end_page = 499
     all_data = scrape_all_pages(start_page, end_page)
     save_to_json(all_data, "scraped_data.json")
     print(f"Data saved to scraped_data.json")

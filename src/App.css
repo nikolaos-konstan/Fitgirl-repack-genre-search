@@ -1,42 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
 #root {
-  max-width: 1280px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: "Inter", sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #ffefd5;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.filters-container,
+.results-container,
+.disclaimer-container {
+  background-color: #e0f7fa;
+  border: 1px solid #b2ebf2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.filters-container {
+  width: 100%;
+  max-width: 440px;
+  min-width: 400px;
+  min-height: 4304px;
 }
 
-.card {
-  padding: 2em;
+.results-container {
+  width: 100%;
+  max-width: 1100px;
+  min-width: 636px;
 }
 
-.read-the-docs {
-  color: #888;
+.disclaimer-container {
+  width: 100%;
+  max-width: 300px;
+}
+
+h2 {
+  color: #00796b;
+  font-family: "Roboto Slab", serif;
+  padding-bottom: 1rem;
+}
+
+p {
+  color: #004d40;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #00796b;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+button:hover {
+  background-color: #004d40;
+  border-color: #004d40;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }

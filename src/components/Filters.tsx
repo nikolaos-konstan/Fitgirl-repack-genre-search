@@ -18,7 +18,6 @@ function Filters({
   onSubmit: (selectedGenres: string[]) => void;
 }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [showAll, setShowAll] = useState(false);
 
   const toggleGenre = (genre: string) => {
     setSelectedGenres((prevSelected) =>
@@ -37,42 +36,25 @@ function Filters({
     onSubmit([]);
   };
 
-  const toggleShowAll = () => {
-    setShowAll((prevShowAll) => !prevShowAll);
-  };
-
   return (
     <div className="filters p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Filters</h2>
-        <label className="flex items-center space-x-2">
-          <span>Also Show Unique</span>
-          <input
-            type="checkbox"
-            checked={showAll}
-            onChange={toggleShowAll}
-            className="form-checkbox"
-          />
-        </label>
-      </div>
+      <h2 className="text-xl font-bold mb-2">Filters</h2>
+
       <ul className="flex flex-wrap gap-2">
-        {sortedGenres
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .filter(([genre, count]) => showAll || count > 1)
-          .map(([genre, count], index) => (
-            <li key={index}>
-              <button
-                className={`px-2 py-1 text-sm rounded-full border ${
-                  selectedGenres.includes(genre)
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-                onClick={() => toggleGenre(genre)}
-              >
-                {genre} ({count})
-              </button>
-            </li>
-          ))}
+        {sortedGenres.map(([genre, count], index) => (
+          <li key={index}>
+            <button
+              className={`px-2 py-1 text-sm rounded-full border ${
+                selectedGenres.includes(genre)
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+              onClick={() => toggleGenre(genre)}
+            >
+              {genre} ({count})
+            </button>
+          </li>
+        ))}
       </ul>
       <div className="mt-4 space-x-2">
         <button
