@@ -1,6 +1,6 @@
 # Overview
 
-This project provides a tool to filter and sort games based on categories, sourced from the FitGirl Repacks website. It consists of a backend Python script to scrape data and a frontend built with React, Vite, and Tailwind CSS for the user interface.
+This project provides a tool to filter and sort games based on categories, sourced from the FitGirl Repacks website. It consists of a Python script to scrape data and a frontend built with React, Vite, and Tailwind CSS for the user interface.
 
 ## Components
 
