@@ -50,6 +50,12 @@ def scrape_page(url):
         else:
             continue
 
+        img_element = article.find("img")
+        if img_element:
+            article_data["image"] = img_element.get("src", "No Image")
+        else:
+            article_data["image"] = "No Image"
+
         data.append(article_data)
 
     return data
@@ -84,7 +90,7 @@ def save_to_json(data, filename):
 
 if __name__ == "__main__":
     start_page = 1
-    end_page = 4
+    end_page = 100
     all_data = scrape_all_pages(start_page, end_page)
     save_to_json(all_data, "scraped_data.json")
     print(f"Data saved to scraped_data.json")
