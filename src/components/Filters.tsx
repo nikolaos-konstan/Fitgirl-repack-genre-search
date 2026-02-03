@@ -9,7 +9,7 @@ scrapedData.forEach((item) => {
 });
 
 const sortedGenres = Array.from(genreCounts.entries()).sort(
-  (a, b) => b[1] - a[1],
+  (a, b) => b[1] - a[1]
 );
 
 function Filters({
@@ -23,7 +23,7 @@ function Filters({
     const newSelectedGenres = selectedGenres.includes(genre)
       ? selectedGenres.filter((g) => g !== genre)
       : [...selectedGenres, genre];
-
+    
     setSelectedGenres(newSelectedGenres);
     onSubmit(newSelectedGenres);
   };
@@ -34,34 +34,80 @@ function Filters({
   };
 
   return (
-    <div className="filters p-4">
-      <h2 className="text-xl font-bold mb-2">Filters</h2>
+    <div className="filters">
+      <h2>Filters</h2>
 
-      <div className="mb-4">
+      <div className="mb-5">
         <button
-          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          style={{
+            backgroundColor: selectedGenres.length > 0 ? '#f4c4b0' : '#e8e4df',
+            color: selectedGenres.length > 0 ? '#2d2d2d' : '#9a9a9a',
+            padding: '0.6em 1.2em',
+            fontSize: '0.9em',
+            fontWeight: '500',
+            cursor: selectedGenres.length > 0 ? 'pointer' : 'not-allowed',
+          }}
           onClick={handleClear}
+          disabled={selectedGenres.length === 0}
         >
-          Clear Filters
+          Clear All
         </button>
+        {selectedGenres.length > 0 && (
+          <span style={{ 
+            marginLeft: '1rem', 
+            color: 'var(--text-muted)', 
+            fontSize: '0.9em' 
+          }}>
+            {selectedGenres.length} selected
+          </span>
+        )}
       </div>
 
-      <ul className="flex flex-wrap gap-2 mt-4">
+      <div style={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: '0.6rem' 
+      }}>
         {sortedGenres.map(([genre, count], index) => (
-          <li key={index}>
-            <button
-              className={`px-2 py-1 text-sm rounded-full border ${
-                selectedGenres.includes(genre)
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-              onClick={() => toggleGenre(genre)}
-            >
-              {genre} ({count})
-            </button>
-          </li>
+          <button
+            key={index}
+            style={{
+              padding: '0.5em 1em',
+              fontSize: '0.85em',
+              borderRadius: '20px',
+              border: selectedGenres.includes(genre) 
+                ? '2px solid #c7b8ea' 
+                : '1px solid var(--border-soft)',
+              backgroundColor: selectedGenres.includes(genre)
+                ? '#c7b8ea'
+                : 'white',
+              color: selectedGenres.includes(genre)
+                ? 'white'
+                : 'var(--text-secondary)',
+              fontWeight: selectedGenres.includes(genre) ? '600' : '500',
+              transition: 'all 0.2s ease',
+              boxShadow: selectedGenres.includes(genre)
+                ? '0 2px 8px rgba(199, 184, 234, 0.3)'
+                : '0 1px 3px var(--shadow-soft)',
+            }}
+            onClick={() => toggleGenre(genre)}
+            onMouseEnter={(e) => {
+              if (!selectedGenres.includes(genre)) {
+                e.currentTarget.style.borderColor = '#c7b8ea';
+                e.currentTarget.style.backgroundColor = 'rgba(199, 184, 234, 0.05)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!selectedGenres.includes(genre)) {
+                e.currentTarget.style.borderColor = 'var(--border-soft)';
+                e.currentTarget.style.backgroundColor = 'white';
+              }
+            }}
+          >
+            {genre} <span style={{ opacity: 0.7 }}>({count})</span>
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

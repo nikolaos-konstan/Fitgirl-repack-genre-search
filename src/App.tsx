@@ -19,24 +19,51 @@ function App() {
         <Results selectedGenres={selectedGenres} />
       </div>
       <div className="disclaimer-container">
-        <h2 className="text-xl font-bold p-4">Disclaimer</h2>
-        <p className="text-blue-900">
+        <h2 style={{ fontSize: '1.25rem' }}>Disclaimer</h2>
+        <p style={{ 
+          fontSize: '0.9rem', 
+          lineHeight: '1.7',
+          color: 'var(--text-secondary)' 
+        }}>
           This tool provides a category-based sorting feature specifically for
           the website{" "}
           <a
             href="https://fitgirl-repacks.site/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-700 hover:text-blue-900"
+            style={{
+              color: '#c7b8ea',
+              textDecoration: 'underline',
+              textDecorationColor: 'rgba(199, 184, 234, 0.3)',
+              textUnderlineOffset: '3px',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.textDecorationColor = '#c7b8ea';
+              e.currentTarget.style.color = '#a89ad4';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.textDecorationColor = 'rgba(199, 184, 234, 0.3)';
+              e.currentTarget.style.color = '#c7b8ea';
+            }}
           >
             https://fitgirl-repacks.site/
           </a>
           . By selecting a result, you will be redirected to the corresponding
           link on the official site. The entries are organized chronologically,
           with the most recent releases appearing first, which may offer better
-          availability. Please note that the data is updated periodically, with
-          the most recent update completed on February 3rd, 2026, to include the
-          latest files.
+          availability.
+        </p>
+        <p style={{ 
+          fontSize: '0.85rem', 
+          marginTop: '1rem',
+          padding: '0.75rem',
+          backgroundColor: 'rgba(244, 196, 176, 0.15)',
+          borderRadius: '10px',
+          color: 'var(--text-secondary)',
+          borderLeft: '3px solid #f4c4b0',
+        }}>
+          Last updated: February 3rd, 2026
         </p>
       </div>
     </div>
