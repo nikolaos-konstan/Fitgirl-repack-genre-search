@@ -35,7 +35,7 @@ function App() {
           link on the official site. The entries are organized chronologically,
           with the most recent releases appearing first, which may offer better
           availability. Please note that the data is updated periodically, with
-          the most recent update completed on August 18, 2024, to include the
+          the most recent update completed on February 3rd, 2026, to include the
           latest files.
         </p>
       </div>

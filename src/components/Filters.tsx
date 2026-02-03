@@ -9,7 +9,7 @@ scrapedData.forEach((item) => {
 });
 
 const sortedGenres = Array.from(genreCounts.entries()).sort(
-  (a, b) => b[1] - a[1]
+  (a, b) => b[1] - a[1],
 );
 
 function Filters({
@@ -20,15 +20,12 @@ function Filters({
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   const toggleGenre = (genre: string) => {
-    setSelectedGenres((prevSelected) =>
-      prevSelected.includes(genre)
-        ? prevSelected.filter((g) => g !== genre)
-        : [...prevSelected, genre]
-    );
-  };
+    const newSelectedGenres = selectedGenres.includes(genre)
+      ? selectedGenres.filter((g) => g !== genre)
+      : [...selectedGenres, genre];
 
-  const handleSubmit = () => {
-    onSubmit(selectedGenres);
+    setSelectedGenres(newSelectedGenres);
+    onSubmit(newSelectedGenres);
   };
 
   const handleClear = () => {
@@ -40,7 +37,16 @@ function Filters({
     <div className="filters p-4">
       <h2 className="text-xl font-bold mb-2">Filters</h2>
 
-      <ul className="flex flex-wrap gap-2">
+      <div className="mb-4">
+        <button
+          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          onClick={handleClear}
+        >
+          Clear Filters
+        </button>
+      </div>
+
+      <ul className="flex flex-wrap gap-2 mt-4">
         {sortedGenres.map(([genre, count], index) => (
           <li key={index}>
             <button
@@ -56,20 +62,6 @@ function Filters({
           </li>
         ))}
       </ul>
-      <div className="mt-4 space-x-2">
-        <button
-          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-          onClick={handleSubmit}
-        >
-          Apply Filters
-        </button>
-        <button
-          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-          onClick={handleClear}
-        >
-          Clear Filters
-        </button>
-      </div>
     </div>
   );
 }

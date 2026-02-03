@@ -37,23 +37,25 @@ function Results({ selectedGenres }: ResultsProps) {
         new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
     );
 
-    const results = sortedData.filter((item: Result) =>
-      selectedGenres.every((genre) => item.genres_tags.includes(genre))
-    );
+    // Show all results if no filters are selected, otherwise filter
+    const results = selectedGenres.length === 0
+      ? sortedData
+      : sortedData.filter((item: Result) =>
+          selectedGenres.every((genre) => item.genres_tags.includes(genre))
+        );
 
     // Update the state
     setFilteredResults(results);
     setCurrentPage(1);
   }, [selectedGenres]);
 
-  if (selectedGenres.length === 0) {
-    return (
-      <div className="results p-4">
-        <h2 className="text-xl font-bold">Results</h2>
-        <p>Please select filters</p>
-      </div>
-    );
-  }
+  const formatDate = (datetime: string) => {
+    const date = new Date(datetime);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'long' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  };
 
   const totalPages = Math.ceil(filteredResults.length / RESULTS_PER_PAGE);
   const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
@@ -93,8 +95,13 @@ function Results({ selectedGenres }: ResultsProps) {
                 className="w-1/3 object-contain"
               />
               <div className="w-2/3 p-4 flex flex-col justify-between">
-                <h3 className="text-xl font-bold">{result.title}</h3>
-                <p className="text-gray-600">{result.genres_tags}</p>
+                <div>
+                  <h3 className="text-xl font-bold">{result.title}</h3>
+                  <p className="text-gray-600">{result.genres_tags}</p>
+                </div>
+                <p className="text-sm text-gray-500 mt-2">
+                  {formatDate(result.datetime)}
+                </p>
               </div>
             </li>
           ))}
