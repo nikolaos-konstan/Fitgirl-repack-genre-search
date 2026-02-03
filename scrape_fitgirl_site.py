@@ -7,14 +7,13 @@ PAGE_URL_FORMAT = BASE_URL + "/page/{}/"
 
 
 def extract_genres_tags(entry_content):
-    genres_tags = "No Genres/Tags"
-    found_genres = False
-    for tag in entry_content.find_all(["p", "strong"]):
-        if found_genres and tag.name == "strong":
-            return tag.get_text(strip=True)
-        if "Genres/Tags:" in tag.get_text():
-            found_genres = True
-    return genres_tags
+    genre_links = entry_content.find_all(
+        "a", href=lambda href: href and "/tag/" in href
+    )
+    if genre_links:
+        genres = [link.get_text(strip=True) for link in genre_links]
+        return ", ".join(genres)
+    return "No Genres/Tags"
 
 
 def scrape_page(url):
